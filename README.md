@@ -81,6 +81,53 @@ $ polymer serve
         this.$.containerId.addEventListener('iron-swipe',this.methodHandlingSwipe.bind(this))
       },
 ```
+**Une fois le composant implémenté et fonctionnel**
+
+* **Faire un push** de la dernière version sur github
+  ```bash
+     $ git add .
+     $ git commit -m "message approprié"
+     $ git push
+  ```
+* **Tagger le composant par un numéro de version** ceci afin de le rendre visible par Bower
+  ```bash
+     $ git tag -a 0.0.1 -m "v0.0.1"
+     $ git push --tags
+  ```
+
+
+
+
+### Etape 3 (1h max) intégration du composant dans MOGGLE
+
+L'objectif est **d'intégrer le composant que vous avez développé dans l'éditeur de jeux sérieux**. Pour cela vous **allez travailler sur un fork de l'éditeur**, un fork est une copie du repository dans son état actuel qui vous appartient. **Vous pouvez modifier le fork et faire des commit sans affecter le repository forké.** 
+
+Les forks facilitent la collaboration : si vos modifications ajoutent des fonctionnalités, vous pouvez faire une **pull request**. C'est à dire proposer de brancher votre fork sur le repository d'origine, mettant à jour le repository d'origine avec les nouveaux éléments. La **pull request devra être accepté par un owner du repository d'origine** (ici Pierre-Yves) pour être prise en compte.     
+
+L'installation de MOGGLE en local demande de suivre les étape suivante :
+* Créer un fork du repository [reveries-authoring](https://github.com/gick/reveries-authoring). 
+* Créer un **clone local du fork** (pas du repository d'origine!)
+* Depuis le répertoire cloné **installer les dépendances nécessaires** :
+  ```bash
+     $ npm install
+     $ cd authoring-client
+     $ npm install
+     $ bower install
+     $ cd ..
+  ```
+* Démarrer l'éditeur MOGGLE localement, tout d'abord lancer le service `mongod` qui permet au serveur de communiquer avec la base de donnée installée localement. Ensuite lancer le service `pm2` qui permet **d'abstraire le serveur sous forme d'un service.** 
+  ```bash
+     $ sudo service mongod start
+     $ pm2 start ecosystem.config.js
+  ```
+
+* Si tout c'est bien passé vous devriez avoir le résultat suivant à l'écran :
+![PM2](./images/pm2.png)
+* Tester l'accès local via l'URL : [MOGGLE local](http:\\localhost:8000)
+* En cas de problème, `$ pm2 log` fournit les dernières écritures sur `stdout` et `stderr`
+
+
+
 
 
 
