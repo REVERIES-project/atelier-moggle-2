@@ -100,7 +100,7 @@ $ polymer serve
 
 ### Etape 3 (1h max) intégration du composant dans MOGGLE
 
-L'objectif est **d'intégrer le composant que vous avez développé dans l'éditeur de jeux sérieux**. Pour cela vous **allez travailler sur un fork de l'éditeur**, un fork est une copie du repository dans son état actuel qui vous appartient. **Vous pouvez modifier le fork et faire des commit sans affecter le repository forké.** 
+L'objectif est **d'intégrer le composant que vous avez développé dans l'éditeur de jeux sérieux**. Pour cela vous **allez travailler sur un fork de l'éditeur**, un fork est une copie du repository dans son état actuel, l'*owner* de la copie étant la personne qui réalise le fork. **Vous pouvez donc modifier le fork et faire des commit sans affecter le repository forké.** 
 
 Les forks facilitent la collaboration : si vos modifications ajoutent des fonctionnalités, vous pouvez faire une **pull request**. C'est à dire proposer de brancher votre fork sur le repository d'origine, mettant à jour le repository d'origine avec les nouveaux éléments. La **pull request devra être accepté par un owner du repository d'origine** (ici Pierre-Yves) pour être prise en compte.     
 
@@ -123,13 +123,29 @@ L'installation de MOGGLE en local demande de suivre les étape suivante :
 
 * Si tout c'est bien passé vous devriez avoir le résultat suivant à l'écran :
 ![PM2](./images/pm2.png)
-* Tester l'accès local via l'URL : [MOGGLE local](http:\\localhost:8000)
+* Tester l'accès local via l'URL : [moggle-local](http://localhost:8000)
 * En cas de problème, `$ pm2 log` fournit les dernières écritures sur `stdout` et `stderr`
+* Lancer ensuite Visual Studio Code depuis le répertoire `reveries-authoring` : `$ code .`
 
+**Organisation du code**
+Le code est divisé en **deux parties indépendantes du point de vue programmation** : 
+* La partie client (HTML,JS) est dans sous-répertoire `authoring-client`
+* La partie serveur (NodeJS) est dans le répertoire racine   
 
+Vous travaillerez tout d'abord sur **la partie client** pour l'intégration du composant, **puis sur la partie serveur** pour permettre la sauvegarde, suppression et mise à jour des instances de composant créées.
 
+**Création de la vue de construction/visualisation du composant**
 
+La première étape est **d'ajouter une nouvelle page composant de niveau 1**. Cette page sera ajoutée dans `authoring-client/src` avec les autres pages de niveau 1. Les noms de ces pages se termine par `-view`. 
 
+La nouvelle page sera créée sur le **modèle des autres pages de création de composants**. Ce modèle est similaire pour chaque page de composant, avec :
+* Au début de la page une **courte description du composant**
+* La partie éditeur/viewer permettant de **créer et prévisualiser de nouveaux composants**
+* La partie **listant les composants de même type déjà créé**
 
+On utilisera le template générique de création de page `authoring-client/src/newcomponent-view.html` pour la création de la page. Une fois la page créée, on l'ajoutera dans l'application web via `authoring-client/src/my-app.html`. **Les points d'insertions à modifier** sont spécifiés dans le fichier `my-app.html`.
 
+**Création du composant de construction**
+La partie éditeur/viewer est séparée en deux parties, pour l'instant l'élément permettant la création en elle même n'a pas été implémentée.
+Réaliser son implémentation sur le modèle de `authoring-client/src/elements/basic-element/free-text-constructor.html`.
 
